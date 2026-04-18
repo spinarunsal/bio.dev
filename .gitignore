@@ -47,3 +47,7 @@ prisma/dev.db-journal
 # editor settings
 .vscode/
 .idea/
+
+# marketing assets (CodeCanyon only)
+envato/
+preview/

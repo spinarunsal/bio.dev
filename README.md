@@ -10,7 +10,7 @@
 > `yourdomain.com/<slug>`. All content is managed from a single-page dashboard with
 > live preview.
 
-**By [PinLab](https://codecanyon.net/user/spinarunsal)** — Premium Flutter & Next.js Templates
+**By PinLab** — Premium Mobile & Web Templates
 
 ---
 
@@ -91,6 +91,6 @@ You are free to use this project for personal or commercial purposes.
 
 ## Author
 
-**PinLab** — [spinarunsal](https://codecanyon.net/user/spinarunsal)
+**PinLab** — Premium Mobile & Web Templates
 
 Premium Flutter & Next.js Templates

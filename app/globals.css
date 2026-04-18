@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+:root {
+  --bg0: 255 255 255;
+  --accent: #4f46e5;
+  --accent-light: rgba(79, 70, 229, 0.10);
+  --accent-mid: rgba(79, 70, 229, 0.22);
+  /* keep old name as alias so dashboard components still work */
+  --accent-rose: #4f46e5;
+  --accent-rose-light: rgba(79, 70, 229, 0.10);
+  --accent-rose-mid: rgba(79, 70, 229, 0.22);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(800px 500px at 20% 10%,
+      rgba(79, 70, 229, 0.10),
+      transparent 60%),
+    radial-gradient(700px 500px at 80% 20%,
+      rgba(99, 102, 241, 0.08),
+      transparent 55%),
+    radial-gradient(900px 600px at 50% 85%,
+      rgba(59, 130, 246, 0.06),
+      transparent 60%),
+    rgb(var(--bg0));
+}
+
+/* modern geometric heading font — Gen Z + HR balanced */
+.font-serif-accent {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* micro-noise texture — prevents glass from feeling too plastic */
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.glass-highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-highlight::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 20% 15%,
+      rgba(255, 255, 255, 0.55),
+      transparent 45%),
+    radial-gradient(circle at 80% 20%,
+      rgba(255, 255, 255, 0.25),
+      transparent 40%);
+  transform: rotate(10deg);
+  pointer-events: none;
+}
+
+.glass-highlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.16),
+      transparent 40%,
+      rgba(0, 0, 0, 0.06));
+  pointer-events: none;
+}
+
+/* indigo accent glass card */
+.glass-accent {
+  background: linear-gradient(135deg,
+      rgba(79, 70, 229, 0.06),
+      rgba(255, 255, 255, 0.18));
+  border: 1px solid rgba(79, 70, 229, 0.18);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* typing cursor blink */
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.typing-cursor::after {
+  content: "|";
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+/* counter number */
+.counter-value {
+  background: linear-gradient(135deg, #1e293b, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* skill pill */
+.skill-pill {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.skill-pill:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+}
+
+/* timeline line */
+.timeline-line {
+  position: absolute;
+  left: 1.125rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom,
+      var(--accent-mid),
+      rgba(79, 70, 229, 0.05));
+}
+
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid white;
+  box-shadow: 0 0 0 3px var(--accent-light);
+  flex-shrink: 0;
+}
+
+/* Markdown Editor Liquid Glass Overrides */
+.editor-glass-override .w-md-editor {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.editor-glass-override .w-md-editor-toolbar {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(10px);
+}
+
+.editor-glass-override .w-md-editor-toolbar li>button {
+  color: #333 !important;
+}
+
+.editor-glass-override .w-md-editor-toolbar li.active>button,
+.editor-glass-override .w-md-editor-toolbar li>button:hover {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: #000 !important;
+}
+
+.editor-glass-override .w-md-editor-content {
+  background-color: transparent !important;
+}
+
+.editor-glass-override textarea {
+  background-color: transparent !important;
+  color: #111 !important;
+}
+
+.editor-glass-override .wmde-markdown {
+  background-color: transparent !important;
+  color: #111 !important;
+}

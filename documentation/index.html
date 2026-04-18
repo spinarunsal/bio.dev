@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bio.dev Documentation</title>
+  <style>
+    :root { --accent: #4f46e5; --accent-light: #eef2ff; --bg: #fafbfc; --text: #1a1a2e; --text-muted: #64748b; --border: #e2e8f0; --code-bg: #f1f5f9; --radius: 12px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+    h1 { font-size: 2.5em; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+    h1 span { background: linear-gradient(135deg, var(--accent), #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: 1.5em; font-weight: 700; margin-top: 48px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent-light); letter-spacing: -0.02em; }
+    h3 { font-size: 1.15em; font-weight: 600; margin-top: 28px; margin-bottom: 10px; color: var(--accent); }
+    p { margin-bottom: 14px; color: #334155; }
+    ul, ol { margin-bottom: 16px; padding-left: 24px; }
+    li { margin-bottom: 6px; color: #334155; }
+    pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; overflow-x: auto; margin-bottom: 16px; font-size: 0.9em; line-height: 1.6; }
+    code { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.88em; }
+    p code, li code { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 0.82em; font-weight: 600; }
+    .badge-blue { background: #dbeafe; color: #1d4ed8; }
+    .badge-green { background: #dcfce7; color: #16a34a; }
+    .badge-purple { background: #ede9fe; color: #7c3aed; }
+    .header { text-align: center; padding: 48px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+    .header p { color: var(--text-muted); font-size: 1.1em; max-width: 500px; margin: 12px auto 20px; }
+    .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.92em; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: var(--accent-light); font-weight: 600; color: var(--accent); }
+    .tip { background: #f0fdf4; border-left: 4px solid #22c55e; border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin-bottom: 16px; }
+    .tip::before { content: "💡 "; }
+    .warning { background: #fefce8; border-left: 4px solid #eab308; border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin-bottom: 16px; }
+    .warning::before { content: "⚠️ "; }
+    .toc { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 32px; }
+    .toc h3 { margin-top: 0; }
+    .toc ol { padding-left: 20px; }
+    .toc a { color: var(--accent); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .footer { text-align: center; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; color: var(--text-muted); font-size: 0.85em; }
+    .step { display: flex; gap: 16px; margin-bottom: 20px; }
+    .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; flex-shrink: 0; margin-top: 2px; }
+    .step-content { flex: 1; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .feature-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .feature-card strong { display: block; margin-bottom: 4px; }
+    .feature-card p { margin: 0; font-size: 0.9em; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1><span>bio.dev</span></h1>
+      <p>Multi-Tenant Portfolio Platform — Complete Documentation</p>
+      <div class="badges">
+        <span class="badge badge-blue">Next.js 16</span>
+        <span class="badge badge-green">Prisma 6</span>
+        <span class="badge badge-purple">TypeScript 5+</span>
+        <span class="badge badge-blue">Tailwind CSS 4</span>
+        <span class="badge badge-green">NextAuth v5</span>
+      </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <h3>📖 Table of Contents</h3>
+      <ol>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#requirements">System Requirements</a></li>
+        <li><a href="#installation">Installation & Setup</a></li>
+        <li><a href="#configuration">Configuration</a></li>
+        <li><a href="#features">Features Overview</a></li>
+        <li><a href="#dashboard">Dashboard Guide</a></li>
+        <li><a href="#customization">Customization</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+        <li><a href="#faq">FAQ & Troubleshooting</a></li>
+        <li><a href="#changelog">Version History</a></li>
+        <li><a href="#credits">Credits & Licenses</a></li>
+      </ol>
+    </div>
+
+    <!-- 1. Introduction -->
+    <h2 id="introduction">1. Introduction</h2>
+    <p><strong>bio.dev</strong> is a fullstack, multi-tenant portfolio builder that lets users create professional portfolio pages in minutes — no coding required.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <strong>🎨 Glassmorphism UI</strong>
+        <p>Modern frosted-glass design with smooth animations</p>
+      </div>
+      <div class="feature-card">
+        <strong>📊 Built-in Analytics</strong>
+        <p>Page views, referrers, unique visitors — no third-party needed</p>
+      </div>
+      <div class="feature-card">
+        <strong>🌍 Bilingual Support</strong>
+        <p>TR / EN content with language toggling for visitors</p>
+      </div>
+      <div class="feature-card">
+        <strong>🚀 Live Preview</strong>
+        <p>See changes in real-time as you edit in the dashboard</p>
+      </div>
+      <div class="feature-card">
+        <strong>📱 Fully Responsive</strong>
+        <p>Optimized for desktop, tablet, and mobile devices</p>
+      </div>
+      <div class="feature-card">
+        <strong>🔒 Secure Auth</strong>
+        <p>NextAuth.js with JWT sessions and bcrypt hashing</p>
+      </div>
+    </div>
+
+    <p><strong>How it works:</strong> Each registered user gets a unique portfolio URL at <code>yourdomain.com/username</code>. They manage all their content — profile, projects, skills, contact info — from a single-page dashboard with a split-panel live preview.</p>
+
+    <!-- 2. System Requirements -->
+    <h2 id="requirements">2. System Requirements</h2>
+    <table>
+      <tr><th>Requirement</th><th>Minimum</th><th>Recommended</th></tr>
+      <tr><td>Node.js</td><td>18.x</td><td>20.x or later</td></tr>
+      <tr><td>npm / yarn</td><td>9.x / 1.x</td><td>Latest</td></tr>
+      <tr><td>Database</td><td>SQLite (dev)</td><td>PostgreSQL 14+ (prod)</td></tr>
+      <tr><td>OS</td><td>macOS, Linux, Windows</td><td>Any</td></tr>
+    </table>
+
+    <!-- 3. Installation & Setup -->
+    <h2 id="installation">3. Installation & Setup</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Extract the files</strong>
+        <p>Unzip the downloaded package and navigate to the <code>source-code</code> directory.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Install dependencies</strong>
+        <pre><code>npm install</code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Configure environment</strong>
+        <pre><code>cp .env.example .env.local</code></pre>
+        <p>Edit <code>.env.local</code> with your database URL and auth secret. See <a href="#configuration">Configuration</a> for details.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Set up the database</strong>
+        <pre><code># Create database tables
+npx prisma db push
+
+# (Optional) Seed with sample data
+node scripts/seed.js
+# Creates test user: test@bio.dev / test123
+# Public page at: http://localhost:3000/test</code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <strong>Start the development server</strong>
+        <pre><code>npm run dev
+# → Open http://localhost:3000</code></pre>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>Quick Start:</strong> For the fastest setup, use SQLite (already configured in <code>.env.example</code>). No external database needed — just run <code>npm install</code>, <code>npx prisma db push</code>, and <code>npm run dev</code>.
+    </div>
+
+    <!-- 4. Configuration -->
+    <h2 id="configuration">4. Configuration</h2>
+
+    <h3>Environment Variables</h3>
+    <table>
+      <tr><th>Variable</th><th>Required</th><th>Description</th></tr>
+      <tr><td><code>DATABASE_URL</code></td><td>✅</td><td>Database connection string. SQLite: <code>file:./prisma/dev.db</code> · PostgreSQL: <code>postgresql://user:pass@host:5432/db</code></td></tr>
+      <tr><td><code>AUTH_SECRET</code></td><td>✅</td><td>Random secret for encrypting JWT sessions. Generate with: <code>openssl rand -base64 32</code></td></tr>
+      <tr><td><code>AUTH_URL</code></td><td>No</td><td>Application URL. Auto-detected on Vercel. Set manually for other hosts.</td></tr>
+    </table>
+
+    <h3>Database Options</h3>
+    <table>
+      <tr><th>Database</th><th>Use Case</th><th>DATABASE_URL Format</th></tr>
+      <tr><td>SQLite</td><td>Local development, demos</td><td><code>file:./prisma/dev.db</code></td></tr>
+      <tr><td>PostgreSQL</td><td>Production, multi-user</td><td><code>postgresql://user:password@host:5432/dbname</code></td></tr>
+    </table>
+
+    <div class="warning">
+      <strong>Important:</strong> When switching between SQLite and PostgreSQL, update the <code>provider</code> field in <code>prisma/schema.prisma</code> accordingly (<code>"sqlite"</code> or <code>"postgresql"</code>), then run <code>npx prisma db push</code> to create the tables.
+    </div>
+
+    <!-- 5. Features Overview -->
+    <h2 id="features">5. Features Overview</h2>
+
+    <h3>Multi-Tenant Architecture</h3>
+    <p>Each user owns a unique <strong>Site</strong> identified by a slug. The public portfolio lives at <code>/username</code>, while all management is done at <code>/dashboard</code>. Complete data isolation between users.</p>
+
+    <h3>Authentication</h3>
+    <ul>
+      <li>Email/password registration with real-time slug availability checker</li>
+      <li>JWT session strategy via NextAuth.js v5</li>
+      <li>Middleware-protected dashboard routes</li>
+      <li>bcrypt password hashing (12 salt rounds)</li>
+      <li>Reserved slug blocking (admin, dashboard, api, etc.)</li>
+    </ul>
+
+    <h3>Public Portfolio</h3>
+    <ul>
+      <li><strong>Hero section</strong> — Title + animated typing lines</li>
+      <li><strong>Skills</strong> — Categorized pill-style skill badges</li>
+      <li><strong>About</strong> — Markdown-rendered biography</li>
+      <li><strong>Featured projects</strong> — Highlighted work with tech stack pills</li>
+      <li><strong>Case study pages</strong> — Problem → Solution → Results format</li>
+      <li><strong>Contact/social links</strong> — Customizable CTA buttons</li>
+      <li><strong>Language toggle</strong> — TR/EN switcher for visitors</li>
+      <li><strong>Framer Motion animations</strong> — Fade-in on scroll, typing effect, hover interactions</li>
+    </ul>
+
+    <h3>Visitor Analytics</h3>
+    <ul>
+      <li>Cookie-free tracking (fingerprint-based, GDPR-friendly)</li>
+      <li>Total views, unique visitors, daily breakdown</li>
+      <li>Top referrer sources, most visited pages</li>
+      <li>Configurable time period (7/14/30 days)</li>
+    </ul>
+
+    <h3>SEO Optimization</h3>
+    <ul>
+      <li>Server-side rendered public pages</li>
+      <li>Dynamic metadata (OpenGraph, Twitter cards)</li>
+      <li>Semantic HTML structure</li>
+      <li>Security headers (X-Frame-Options, CSP, HSTS-ready)</li>
+    </ul>
+
+    <!-- 6. Dashboard Guide -->
+    <h2 id="dashboard">6. Dashboard Guide</h2>
+    <p>The dashboard uses a <strong>split-panel layout</strong>: editor on the left (50%), live preview on the right (50%).</p>
+
+    <h3>Profile Tab</h3>
+    <ul>
+      <li>Edit hero title, subtitle, and typing animation lines</li>
+      <li>Manage skill categories (add/remove categories, comma-separated items)</li>
+      <li>Write your about section in Markdown</li>
+      <li>Configure contact/social link buttons</li>
+      <li><strong>Auto-save</strong> with 800ms debounce — changes save as you type</li>
+      <li>TR/EN language toggle to edit content in both languages</li>
+    </ul>
+
+    <h3>Projects Tab</h3>
+    <ul>
+      <li>Create, edit, and delete portfolio projects</li>
+      <li>Case study fields: Problem, Solution (JSON array), Results (JSON array)</li>
+      <li>Toggle Featured and Published status per project</li>
+      <li>Tech stack as JSON array, cover image URL</li>
+      <li>Bilingual editing (TR/EN)</li>
+    </ul>
+
+    <h3>Settings Tab</h3>
+    <ul>
+      <li>Site title, slug, default language, publish/unpublish</li>
+      <li>Contact info (email, LinkedIn, GitHub, website, CV URL)</li>
+      <li>Professional metrics (years experience, projects delivered, industries)</li>
+      <li>Availability status (Available, Busy, Unavailable)</li>
+    </ul>
+
+    <h3>Analytics Tab</h3>
+    <ul>
+      <li>Total views, period views, unique visitors (metric cards)</li>
+      <li>Daily views bar chart with period selector</li>
+      <li>Top referrer sources and most visited pages</li>
+    </ul>
+
+    <!-- 7. Customization -->
+    <h2 id="customization">7. Customization</h2>
+
+    <h3>Theme Colors</h3>
+    <p>The accent color is defined in <code>app/globals.css</code>. Change the CSS custom properties to match your brand:</p>
+    <pre><code>:root {
+  --accent: #4f46e5;            /* Main accent (currently indigo) */
+  --accent-light: rgba(79, 70, 229, 0.10);
+  --accent-mid: rgba(79, 70, 229, 0.22);
+}</code></pre>
+
+    <h3>Typography</h3>
+    <p>Fonts are loaded in <code>app/layout.tsx</code> via Google Fonts. Default setup:</p>
+    <ul>
+      <li><strong>Body text:</strong> Inter (weights 300–700)</li>
+      <li><strong>Headings:</strong> Space Grotesk (geometric, modern)</li>
+    </ul>
+    <p>To change fonts, update the <code>&lt;link&gt;</code> tags in the layout head and the corresponding CSS classes.</p>
+
+    <h3>Adding New Languages</h3>
+    <ol>
+      <li>Create a new dictionary file: <code>lib/i18n/fr.ts</code> (copy from <code>en.ts</code>)</li>
+      <li>Add the language to the context in <code>lib/i18n/LanguageContext.tsx</code></li>
+      <li>Update the language toggle in the public portfolio component</li>
+      <li>Add corresponding <code>*Fr</code> columns to the Prisma schema (optional, for user content)</li>
+    </ol>
+
+    <h3>Extending the Schema</h3>
+    <p>To add new fields or models:</p>
+    <pre><code># 1. Edit prisma/schema.prisma
+# 2. Apply changes
+npx prisma db push     # Dev (no migration history)
+npx prisma migrate dev  # Prod (creates migration file)</code></pre>
+
+    <!-- 8. Deployment -->
+    <h2 id="deployment">8. Deployment</h2>
+
+    <h3>Vercel (Recommended)</h3>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Push to GitHub</strong>
+        <p>Initialize a git repository and push your code.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Import in Vercel</strong>
+        <p>Go to <a href="https://vercel.com/new">vercel.com/new</a> and import your repo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Set environment variables</strong>
+        <p>Add <code>DATABASE_URL</code> (PostgreSQL) and <code>AUTH_SECRET</code> in Project Settings → Environment Variables.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Deploy</strong>
+        <p>Build command is pre-configured: <code>prisma generate && prisma migrate deploy && next build</code></p>
+        <p>Vercel will auto-deploy on every push.</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>Database:</strong> For production, use <strong>Vercel Postgres</strong>, <strong>Neon</strong>, or <strong>Supabase</strong> for a managed PostgreSQL database. Remember to update the <code>provider</code> in <code>schema.prisma</code> to <code>"postgresql"</code>.
+    </div>
+
+    <h3>Self-Hosted / VPS</h3>
+    <pre><code># Build for production
+npm run build
+
+# Start production server
+npm start
+# Runs on port 3000 by default</code></pre>
+
+    <!-- 9. FAQ -->
+    <h2 id="faq">9. FAQ & Troubleshooting</h2>
+
+    <h3>How do I switch from SQLite to PostgreSQL?</h3>
+    <ol>
+      <li>Update <code>provider</code> in <code>prisma/schema.prisma</code> from <code>"sqlite"</code> to <code>"postgresql"</code></li>
+      <li>Set <code>DATABASE_URL</code> in <code>.env.local</code> to your PostgreSQL connection string</li>
+      <li>Run <code>npx prisma db push</code> to create tables</li>
+      <li>Run <code>node scripts/seed.js</code> to create test data (optional)</li>
+    </ol>
+
+    <h3>I get "AUTH_SECRET is missing" error</h3>
+    <p>Make sure <code>AUTH_SECRET</code> is set in your <code>.env.local</code> file. Generate one with: <code>openssl rand -base64 32</code></p>
+
+    <h3>The dashboard shows a blank page</h3>
+    <p>Check: (1) You are logged in, (2) Your database is running and seeded, (3) The <code>DATABASE_URL</code> is correct.</p>
+
+    <h3>Can I use MySQL instead of PostgreSQL?</h3>
+    <p>Prisma supports MySQL. Change the <code>provider</code> to <code>"mysql"</code> in the schema and adjust the <code>DATABASE_URL</code> format accordingly. Some field types may need adjustment.</p>
+
+    <h3>How do I add a custom domain?</h3>
+    <p>On Vercel: Project Settings → Domains → Add your domain. For self-hosted: configure your reverse proxy (Nginx, Caddy) to point to port 3000.</p>
+
+    <!-- 10. Changelog -->
+    <h2 id="changelog">10. Version History</h2>
+    <table>
+      <tr><th>Version</th><th>Date</th><th>Changes</th></tr>
+      <tr>
+        <td><strong>1.0.0</strong></td>
+        <td>April 2026</td>
+        <td>
+          Initial release:
+          <ul style="margin:4px 0 0 16px;">
+            <li>Multi-tenant portfolio builder</li>
+            <li>Dashboard with split-panel live preview</li>
+            <li>Profile, Projects, Settings, Analytics tabs</li>
+            <li>Public portfolio with glassmorphism design</li>
+            <li>TR/EN bilingual support</li>
+            <li>Visitor analytics (cookie-free)</li>
+            <li>NextAuth.js v5 authentication</li>
+            <li>Case study project pages</li>
+            <li>Auto-save with debounce</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+    <!-- 11. Credits -->
+    <h2 id="credits">11. Credits & Licenses</h2>
+    <table>
+      <tr><th>Library</th><th>License</th><th>URL</th></tr>
+      <tr><td>Next.js 16</td><td>MIT</td><td><a href="https://nextjs.org">nextjs.org</a></td></tr>
+      <tr><td>React 19</td><td>MIT</td><td><a href="https://react.dev">react.dev</a></td></tr>
+      <tr><td>Prisma 6</td><td>Apache 2.0</td><td><a href="https://prisma.io">prisma.io</a></td></tr>
+      <tr><td>NextAuth.js v5</td><td>ISC</td><td><a href="https://authjs.dev">authjs.dev</a></td></tr>
+      <tr><td>Tailwind CSS 4</td><td>MIT</td><td><a href="https://tailwindcss.com">tailwindcss.com</a></td></tr>
+      <tr><td>Framer Motion</td><td>MIT</td><td><a href="https://www.framer.com/motion/">framer.com/motion</a></td></tr>
+      <tr><td>Lucide Icons</td><td>ISC</td><td><a href="https://lucide.dev">lucide.dev</a></td></tr>
+      <tr><td>bcryptjs</td><td>MIT</td><td><a href="https://www.npmjs.com/package/bcryptjs">npm</a></td></tr>
+      <tr><td>Inter Font</td><td>OFL</td><td><a href="https://fonts.google.com/specimen/Inter">Google Fonts</a></td></tr>
+      <tr><td>Space Grotesk Font</td><td>OFL</td><td><a href="https://fonts.google.com/specimen/Space+Grotesk">Google Fonts</a></td></tr>
+    </table>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p><strong>bio.dev</strong> v1.0.0 — Multi-Tenant Portfolio Platform</p>
+      <p>By <strong>PinLab</strong> (spinarunsal) — Free on CodeCanyon</p>
+      <p>Thank you for downloading! If you find this useful, please leave a rating on CodeCanyon.</p>
+    </div>
+
+  </div>
+</body>
+</html>

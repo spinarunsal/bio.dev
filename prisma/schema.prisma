@@ -1,0 +1,231 @@
+// ═══════════════════════════════════════════════════════════
+// Prisma Schema — Database schema definition
+// ═══════════════════════════════════════════════════════════
+//
+// Defines all database tables and relationships.
+// Uses PostgreSQL in production. Can also be used with SQLite for development.
+//
+// 7 Models:
+// - User: Account holder (root of multi-tenant structure)
+// - Site: Portfolio site (identified by a unique slug)
+// - SiteContent: Page content (hero, about, skills, etc. — TR/EN)
+// - Project: Portfolio projects (case study format)
+// - SiteSettings: Settings (social links, metrics)
+// - ContactMessage: Contact form messages
+// - VisitorSession / PageView: Visitor analytics
+//
+// Relationships:
+//   User 1→N Site 1→1 SiteContent
+//                     1→1 SiteSettings
+//                     1→N Project
+//                     1→N ContactMessage
+//                     1→N VisitorSession 1→N PageView
+//
+// Every text field has an English counterpart with *En suffix.
+// Skills, timeline, typing lines etc. are stored as JSON strings.
+//
+// Commands:
+//   npx prisma migrate dev  → Create and apply migrations
+//   npx prisma generate     → Regenerate the client
+//   npx prisma studio       → Visual database browser
+// ═══════════════════════════════════════════════════════════
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Multi-tenant core ─────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  sites        Site[]
+}
+
+model Site {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slug        String   @unique
+  title       String   @default("")
+  langDefault String   @default("tr")
+  theme       String   @default("default")
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  content  SiteContent?
+  projects Project[]
+  settings SiteSettings?
+  sessions VisitorSession[]
+  pageViews PageView[]
+  messages ContactMessage[]
+
+  @@index([userId])
+  @@index([slug])
+}
+
+// ─── Site content ───────────────────────────────────────
+
+model SiteContent {
+  id                  String   @id @default(cuid())
+  siteId              String   @unique
+  site                Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  homeHeroTitle       String   @default("")
+  homeHeroSubtitle    String   @default("")
+  aboutMarkdown       String   @default("")
+  workIntroMarkdown   String   @default("")
+  contactMarkdown     String   @default("")
+  // EN variants
+  homeHeroTitleEn     String   @default("")
+  homeHeroSubtitleEn  String   @default("")
+  aboutMarkdownEn     String   @default("")
+  workIntroMarkdownEn String   @default("")
+  contactMarkdownEn   String   @default("")
+  // Identity cards
+  musicTitle          String   @default("")
+  musicTitleEn        String   @default("")
+  musicContent        String   @default("")
+  musicContentEn      String   @default("")
+  musicMediaUrl       String   @default("")
+  canadaTitle         String   @default("")
+  canadaTitleEn       String   @default("")
+  canadaContent       String   @default("")
+  canadaContentEn     String   @default("")
+  womanTitle          String   @default("")
+  womanTitleEn        String   @default("")
+  womanContent        String   @default("")
+  womanContentEn      String   @default("")
+  animalTitle         String   @default("")
+  animalTitleEn       String   @default("")
+  animalContent       String   @default("")
+  animalContentEn     String   @default("")
+  // Skills (JSON array of {label, items[]})
+  skillsJson          String   @default("[]")
+  skillsJsonEn        String   @default("[]")
+  // Timeline (JSON string)
+  timelineJson        String   @default("[]")
+  // Hero typing lines (JSON array of strings)
+  typingLinesJson     String   @default("[]")
+  typingLinesJsonEn   String   @default("[]")
+  // Featured section description
+  featuredDescription   String @default("")
+  featuredDescriptionEn String @default("")
+  updatedAt           DateTime @updatedAt
+}
+
+// ─── Projects ───────────────────────────────────────────
+
+model Project {
+  id          String   @id @default(cuid())
+  siteId      String
+  site        Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  slug        String
+  title       String   @default("")
+  role        String   @default("")
+  summary     String   @default("")
+  cover       String   @default("")
+  stack       String   @default("[]")
+  problem     String   @default("")
+  solution    String   @default("[]")
+  results     String   @default("[]")
+  isFeatured  Boolean  @default(false)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  date        DateTime @default(now())
+  techStack   String?
+  // EN variants
+  titleEn     String   @default("")
+  roleEn      String   @default("")
+  summaryEn   String   @default("")
+  problemEn   String   @default("")
+  solutionEn  String   @default("")
+  resultsEn   String   @default("")
+
+  @@unique([siteId, slug])
+  @@index([siteId])
+}
+
+// ─── Site settings ──────────────────────────────────────
+
+model SiteSettings {
+  id                  String   @id @default(cuid())
+  siteId              String   @unique
+  site                Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  email               String   @default("")
+  linkedin            String   @default("")
+  github              String   @default("")
+  website             String   @default("")
+  cvUrl               String   @default("")
+  // Metrics bar
+  yearsExperience     String   @default("")
+  projectsDelivered   String   @default("")
+  industriesServed    String   @default("")
+  availabilityStatus  String   @default("open")
+  socialLink1Title    String   @default("")
+  socialLink1Url      String   @default("")
+  socialLink2Title    String   @default("")
+  socialLink2Url      String   @default("")
+  updatedAt           DateTime @updatedAt
+}
+
+// ─── Contact messages ───────────────────────────────────
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  siteId    String
+  site      Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  name      String
+  email     String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+
+  @@index([siteId])
+}
+
+// ─── Analytics ──────────────────────────────────────────
+
+model VisitorSession {
+  id               String     @id @default(cuid())
+  siteId           String
+  site             Site       @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  fingerprint      String
+  ip               String     @default("")
+  userAgent        String     @default("")
+  language         String     @default("")
+  screenResolution String     @default("")
+  firstVisit       DateTime   @default(now())
+  lastVisit        DateTime   @updatedAt
+  pageViews        PageView[]
+
+  @@unique([siteId, fingerprint])
+  @@index([siteId])
+}
+
+model PageView {
+  id        String          @id @default(cuid())
+  siteId    String
+  site      Site            @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  path      String
+  referrer  String          @default("")
+  userAgent String          @default("")
+  sessionId String
+  session   VisitorSession  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  createdAt DateTime        @default(now())
+
+  @@index([siteId])
+  @@index([path])
+  @@index([createdAt])
+  @@index([sessionId])
+}
